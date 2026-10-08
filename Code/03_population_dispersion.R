@@ -16,3 +16,6 @@ rana <- vect(path)
 rana
 
 plot(rana)
+
+install.packages("vegan")
+install.packages("overlap")
