@@ -199,8 +199,8 @@ plot(dmap, col=cl)
 plot(dmap, col=cln)
 
 
-install.packages("terra")
-install.packages("sdm")
+# install.packages("terra")
+# install.packages("sdm")
 library(terra)
 library(sdm)
 
