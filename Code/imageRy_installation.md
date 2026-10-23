@@ -18,3 +18,11 @@ install.packages("remotes")
 library(remotes)
 install_github("ducciorocchini/imageRy")
 ```
+
+During the installation do not update previous packages (just pressing enter)
+
+Write:
+```
+library(imageRy)
+```
+to check that the package has been properly installed.
