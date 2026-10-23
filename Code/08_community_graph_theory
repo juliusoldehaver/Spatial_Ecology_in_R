@@ -29,4 +29,4 @@ graph <- graph_from_data_frame(interactions, vertices=species)
 plot(graph)
 
 # install.packages("name") -> packages "devtool", "remotes" -> install_github("account/name") 
-# Check file 09
+# Check file "imageRy_installation.md"
