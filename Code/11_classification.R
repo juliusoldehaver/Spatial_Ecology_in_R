@@ -1,6 +1,6 @@
 # packages
 #install.packages("ggplot2")
-install.packages("patchwork")
+#install.packages("patchwork")
 library(terra)
 library(imageRy)
 library(ggplot2)
@@ -88,3 +88,67 @@ ggplot(tabout, aes(x=class, y=perc1992, color=class)) +
 # Exercise: repeat for 2006
 ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
   geom_bar(stat="identity", fill="white")
+
+# Changing the fill color
+ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+  geom_bar(stat="identity", fill="yellow")
+
+# Change te geometry
+# points
+ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+  geom_point(stat="identity", fill="white")
+
+# using the patchwork package to plot several plots together
+# assign the plots to objects
+Graph1992<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + 
+      geom_bar(stat="identity", fill="white")
+Graph2006<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+          geom_bar(stat="identity", fill="white")
+
+Graph1992 + Graph2006
+
+# Exercise: put one plot over the other (not site to site)
+Graph1992 / Graph2006
+
+# changing the scale of the data
+Graph1992<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + 
+      geom_bar(stat="identity", fill="white") +
+      ylim(c(0,100))
+           
+Graph2006<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+      geom_bar(stat="identity", fill="white") +
+      ylim(c(0,100))
+
+Graph1992 + Graph2006
+
+# Removing one legend
+Graph1992<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + 
+      geom_bar(stat="identity", fill="white") +
+      ylim(c(0,100)) +
+      theme(legend.position="none")
+           
+Graph2006<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+      geom_bar(stat="identity", fill="white") +
+      ylim(c(0,100))
+
+Graph1992 + Graph2006
+
+# Using patchwork with satellite data
+im.ggplot(m1992[[1]])
+im.ggplot(m2006[[1]])
+
+# plotting satellite data and stats together
+s1 <- im.ggplot(m1992[[1]])
+s2 <- im.ggplot(m2006[[1]])
+
+# final plot
+(s1 | s2) / 
+(Graph1992 | Graph2006)
+
+# Doing the same with RGB images
+rgb1 <- im.ggplotRGB(m1992)
+rgb2 <- im.ggplotRGB(m2006)
+
+# Final plot
+(rgb1 | rgb2) / 
+(Graph1992 | Graph2006)
