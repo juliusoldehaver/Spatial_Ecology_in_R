@@ -1,0 +1,47 @@
+# R code for developing ecosystem monitoring in different times
+
+# packages
+library(terra) 
+library(imageRy)
+library(patchwork)
+
+# Listing data
+im.list()
+
+# European nitrogen
+EN01 <- im.import("EN_01.png")
+#EN01 <- flip(EN01) not necessary for my png
+plot(EN01)
+
+# Exercise: import and plot the final image
+EN13<- im.import("EN_13.png")
+plot(EN13)
+
+# Plotting the two situations one on top of the other
+p1 <- im.ggplot(EN01[[1]])
+p2 <- im.ggplot(EN13[[1]])
+p1/p2
+
+# Differencing images
+diffEN <- EN01[[1]] - EN13[[1]]
+diffEN
+plot(diffEN)
+
+# plotting everything together
+p3 <- im.ggplot(diffEN)
+p1 + p2 + p3
+
+# time series analysis with several images at a time
+# Exercise: import directly in a stack the NDVI data from 2020
+
+ndvi<-im.import("NDVI_2020")
+?im.ridgeline
+
+# ridgeline plots
+im.ridgeline(ndvi, scale=1)
+#Error because plots have same name
+
+names(ndvi)<-c("02_feb" , "05_may" , "08_aug" , "11_nov")
+ndvi
+im.ridgeline(ndvi, scale=1)
+
